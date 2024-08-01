@@ -1,4 +1,4 @@
-const int piezoPins[4] = {A0, A1, A2, A3};
+const int piezoPins[6] = {A0, A1, A2, A3, A4, A5};
 const int kick = 2; // pino do botão extra, agora chamado de kick
 const int dpadPins[4] = {3, 4, 5, 6}; // pinos do d-pad
 const int startPin = 7;
@@ -22,7 +22,11 @@ void setup() {
 }
 
 void loop() {
- 
+
+  //================================================================================//
+  //= PARTE DE DECLARAÇÃO DOS TAMBORES PRINCIPAIS (VERDE, AMARELO, AZUL E VERMELHO =//
+  //================================================================================//
+  
   int piezoValueRed = analogRead(piezoPins[0]);
   if (piezoValueRed > threshold) { // defina um limiar adequado
     Serial.println("H");
@@ -43,6 +47,23 @@ void loop() {
     Serial.println("K");
   } 
 
+  //================================================================================//
+  //========== PARTE DE DECLARAÇÃO DOS PRATOS ADICIONAIS AMARELO E AZUL ============//
+  //================================================================================//
+
+  int piezoValueYellowPlate = analogRead(piezoPins[4]);
+  if (piezoValueYellowPlate > threshold) { // defina um limiar adequado
+    Serial.println("L");
+  } 
+
+    int piezoValueBluePlate = analogRead(piezoPins[5]);
+  if (piezoValueBluePlate > threshold) { // defina um limiar adequado
+    Serial.println("M");
+  } 
+  
+  //================================================================================//
+  //======== PARTE DE DECLARAÇÃO DOS BOTÕES DE NAVEGAÇÃO E KICK (BUMBO) ============//
+  //================================================================================//
   debounceButton(0, dpadPins[0], "A");
   debounceButton(1, dpadPins[1], "B");
   debounceButton(2, dpadPins[2], "C");
@@ -53,9 +74,15 @@ void loop() {
   debounceButton(6, selectPin, "E");
   debounceButton(5, startPin, "F");
 
+  
   delay(10);
 }
 
+
+
+//================================================================================//
+//=========== PARTE DE DECLARAÇÃO DA FUNÇÃO DE DEBOUNCE DOS BOTÕES ===============//
+//================================================================================//
 void debounceButton(int index, int pin, String message) {
   int reading = digitalRead(pin);
 
