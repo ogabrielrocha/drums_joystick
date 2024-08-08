@@ -9,6 +9,7 @@ keyboard = Controller()
 
 # Dicionário para mapear as mensagens do Arduino para as teclas correspondentes
 key_map = {
+    "N": 'n',  # GREEN PLATE piezo
     "M": 'm',  # BLUE PLATE piezo
     "L": 'l',  # YELLOW PLATE piezo
     "H": 'h',  # RED piezo
