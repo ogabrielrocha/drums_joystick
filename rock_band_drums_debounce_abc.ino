@@ -1,5 +1,5 @@
-const int piezoPins[6] = {A0, A1, A2, A3, A4, A5};
-const int kick = 2; // pino do botão extra, agora chamado de kick
+const int piezoPins[6] = {A0, A1, A2, A3, A4, A5}; // RED, YELLOW, BLUE, GREEN, YELLOWPLATE, BLUEPLATE, GREENPLATE
+const int kick = 2; // Pedal do Bumbo
 const int dpadPins[4] = {3, 4, 5, 6}; // pinos do d-pad
 const int startPin = 7;
 const int selectPin = 8;
@@ -11,11 +11,17 @@ int lastButtonState[7] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH}; // Array pa
 int buttonState[7] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH}; // Array para armazenar o estado atual dos botões
 
 void setup() {
+  
   Serial.begin(115200);
+  
   for (int i = 0; i < 4; i++) {
-    pinMode(piezoPins[i], INPUT);
     pinMode(dpadPins[i], INPUT_PULLUP);
   }
+
+  for (int i = 0; i < 7; i++) {
+    pinMode(piezoPins[i], INPUT);
+  }
+  
   pinMode(kick, INPUT_PULLUP);
   pinMode(startPin, INPUT_PULLUP);
   pinMode(selectPin, INPUT_PULLUP);
@@ -47,9 +53,9 @@ void loop() {
     Serial.println("K");
   } 
 
-  //================================================================================//
-  //========== PARTE DE DECLARAÇÃO DOS PRATOS ADICIONAIS AMARELO E AZUL ============//
-  //================================================================================//
+  //=======================================================================================//
+  //========== PARTE DE DECLARAÇÃO DOS PRATOS ADICIONAIS AMARELO, AZUL E VERDE ============//
+  //=======================================================================================//
 
   int piezoValueYellowPlate = analogRead(piezoPins[4]);
   if (piezoValueYellowPlate > threshold) { // defina um limiar adequado
@@ -59,6 +65,11 @@ void loop() {
     int piezoValueBluePlate = analogRead(piezoPins[5]);
   if (piezoValueBluePlate > threshold) { // defina um limiar adequado
     Serial.println("M");
+  } 
+
+    int piezoValueGreenPlate = analogRead(piezoPins[6]);
+  if (piezoValueGreenPlate > threshold) { // defina um limiar adequado
+    Serial.println("N");
   } 
   
   //================================================================================//
